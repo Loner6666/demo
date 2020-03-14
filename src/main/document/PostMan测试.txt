@@ -1,0 +1,189 @@
+PostMan测试：
+1、
+    http://localhost:8081/gmall/getUserInfo
+    Get请求、查询所有
+=============================================
+{
+    "code": 200,
+    "message": "成功",
+    "data": [
+        {
+            "id": 1,
+            "loginName": "atguigu",
+            "nickName": "Atguigu",
+            "passwd": "202cb962ac59075b964b07152d234b70",
+            "name": "尚硅谷",
+            "phoneNum": "11111",
+            "email": "atguigu.com",
+            "headImg": "1",
+            "userLevel": "1"
+        },
+        {
+            "id": 2,
+            "loginName": "admin",
+            "nickName": "Administrator",
+            "passwd": "202cb962ac59075b964b07152d234b70",
+            "name": "Admin",
+            "phoneNum": "2222",
+            "email": "upd@qq.com",
+            "headImg": "2",
+            "userLevel": "2"
+        },
+        {
+            "id": 3,
+            "loginName": "zhangsan",
+            "nickName": "张三",
+            "passwd": "202cb962ac59075b964b07152d234b70",
+            "name": "张三",
+            "phoneNum": "333",
+            "email": "atguigu.com",
+            "headImg": "3",
+            "userLevel": "3"
+        },
+        {
+            "id": 7,
+            "loginName": "用户3",
+            "nickName": "昵称1",
+            "passwd": "202cb962ac59075b964b07152d234b70",
+            "name": "张三123",
+            "phoneNum": "44444",
+            "email": "atguigu.com",
+            "headImg": "4",
+            "userLevel": "4"
+        },
+        {
+            "id": 8,
+            "loginName": "用户4",
+            "nickName": "昵称2",
+            "passwd": "202cb962ac59075b964b07152d234b70",
+            "name": "张三124",
+            "phoneNum": "44445",
+            "email": "upd@qq.com",
+            "headImg": "5",
+            "userLevel": "5"
+        },
+        {
+            "id": 9,
+            "loginName": "用户5",
+            "nickName": "昵称3",
+            "passwd": "202cb962ac59075b964b07152d234b70",
+            "name": "张三125",
+            "phoneNum": "44446",
+            "email": "atguigu.com",
+            "headImg": "6",
+            "userLevel": "6"
+        }
+    ]
+}
+=============================================
+
+2、
+    http://localhost:8081/gmall/getUserInfoPage
+    POST请求、分页查询
+=============================================
+请求体：
+{
+    "pageNum": 1,
+    "pageSize": 2
+}
+响应体：
+{
+    "code": 200,
+    "message": "成功",
+    "data": {
+        "total": 6,
+        "list": [
+            {
+                "id": 1,
+                "loginName": null,
+                "nickName": null,
+                "passwd": "202cb962ac59075b964b07152d234b70",
+                "name": "尚硅谷",
+                "phoneNum": null,
+                "email": "atguigu.com",
+                "headImg": null,
+                "userLevel": null,
+                "pageNum": null,
+                "pageSize": null,
+                "pageTotal": null
+            },
+            {
+                "id": 2,
+                "loginName": null,
+                "nickName": null,
+                "passwd": "202cb962ac59075b964b07152d234b70",
+                "name": "Admin",
+                "phoneNum": null,
+                "email": "upd@qq.com",
+                "headImg": null,
+                "userLevel": null,
+                "pageNum": null,
+                "pageSize": null,
+                "pageTotal": null
+            }
+        ],
+        "pageNum": 1,
+        "pageSize": 2,
+        "size": 2,
+        "startRow": 1,
+        "endRow": 2,
+        "pages": 3,
+        "prePage": 0,
+        "nextPage": 2,
+        "isFirstPage": true,
+        "isLastPage": false,
+        "hasPreviousPage": false,
+        "hasNextPage": true,
+        "navigatePages": 8,
+        "navigatepageNums": [
+            1,
+            2,
+            3
+        ],
+        "navigateFirstPage": 1,
+        "navigateLastPage": 3,
+        "firstPage": 1,
+        "lastPage": 3
+    }
+}
+=============================================
+
+3、
+    http://localhost:8081/gmall/exportUserInfo
+    Get请求、导出到Excel
+
+=============================================
+4、
+    http://localhost:8081/gmall/importUserInfo
+    POST请求、从Excel导入到数据库
+
+=============================================
+
+5、
+    com.example.demo.task.ScheduleTask
+    定时任务、每隔5秒输出一下当前时间
+
+
+
+================================================================执行的相关SQL：
+
+--  1  2020-03-14 13:06:04.625 DEBUG 8832 --- [nio-8081-exec-1] c.e.d.mapper.UserInfoMapper.getUserInfo  : ==>
+select id, login_name, nick_name, passwd, name, phone_num, email, head_img, user_level
+ FROM user_info;
+------------------------------------------------------------------------------------------------------------------------
+--  2  2020-03-14 13:06:07.661 DEBUG 8832 --- [nio-8081-exec-2] c.e.d.m.U.getUserInfoPage_COUNT          : ==>
+SELECT count(0)
+ FROM user_info;
+------------------------------------------------------------------------------------------------------------------------
+--  3  2020-03-14 13:06:07.663 DEBUG 8832 --- [nio-8081-exec-2] c.e.d.m.UserInfoMapper.getUserInfoPage   : ==>
+select id, login_name, nick_name, passwd, name, phone_num, email, head_img, user_level
+ FROM user_info
+ LIMIT 2;
+------------------------------------------------------------------------------------------------------------------------
+--  4  2020-03-14 13:06:10.255 DEBUG 8832 --- [nio-8081-exec-3] c.e.d.mapper.UserInfoMapper.getUserInfo  : ==>
+select id, login_name, nick_name, passwd, name, phone_num, email, head_img, user_level
+ FROM user_info;
+------------------------------------------------------------------------------------------------------------------------
+--  5  2020-03-14 13:06:14.081 DEBUG 8832 --- [nio-8081-exec-4] c.e.d.m.U.importUserInfoList             : ==>
+insert into user_info ( login_name, nick_name, passwd, name, phone_num, email, head_img, user_level ) values ( '用户3', '昵称1', '202cb962ac59075b964b07152d234b70', '张三123', '44444', 'atguigu.com', '4', '4' ) , ( '用户4', '昵称2', '202cb962ac59075b964b07152d234b70', '张三124', '44445', 'upd@qq.com', '5', '5' ) , ( '用户5', '昵称3', '202cb962ac59075b964b07152d234b70', '张三125', '44446', 'atguigu.com', '6', '6' );
+------------------------------------------------------------------------------------------------------------------------

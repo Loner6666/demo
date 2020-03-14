@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.bean.UserInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="login_name" property="loginName" jdbcType="VARCHAR"/>
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
+        <result column="passwd" property="passwd" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="phone_num" property="phoneNum" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="head_img" property="headImg" jdbcType="VARCHAR"/>
+        <result column="user_level" property="userLevel" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, login_name, nick_name, passwd, name, phone_num, email, head_img, user_level
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from user_info
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.example.demo.bean.UserInfo">
+    insert into user_info (id, login_name, nick_name, 
+      passwd, name, phone_num, 
+      email, head_img, user_level
+      )
+    values (#{id,jdbcType=BIGINT}, #{loginName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{passwd,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, #{userLevel,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.example.demo.bean.UserInfo">
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="loginName != null">
+                login_name,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+            <if test="passwd != null">
+                passwd,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="phoneNum != null">
+                phone_num,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="headImg != null">
+                head_img,
+            </if>
+            <if test="userLevel != null">
+                user_level,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="loginName != null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="passwd != null">
+                #{passwd,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNum != null">
+                #{phoneNum,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="headImg != null">
+                #{headImg,jdbcType=VARCHAR},
+            </if>
+            <if test="userLevel != null">
+                #{userLevel,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.bean.UserInfo">
+        update user_info
+        <set>
+            <if test="loginName != null">
+                login_name = #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="passwd != null">
+                passwd = #{passwd,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNum != null">
+                phone_num = #{phoneNum,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="headImg != null">
+                head_img = #{headImg,jdbcType=VARCHAR},
+            </if>
+            <if test="userLevel != null">
+                user_level = #{userLevel,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.demo.bean.UserInfo">
+    update user_info
+    set login_name = #{loginName,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      passwd = #{passwd,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      head_img = #{headImg,jdbcType=VARCHAR},
+      user_level = #{userLevel,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="getUserInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_info
+    </select>
+
+    <select id="getUserInfoPage" resultType="com.example.demo.vo.UserInfoVo"
+            parameterType="com.example.demo.vo.UserInfoVo">
+        select
+        <include refid="Base_Column_List"/>
+        from user_info
+    </select>
+
+    <insert id="importUserInfoList" parameterType="java.util.List">
+        insert into user_info ( login_name, nick_name,
+        passwd, name, phone_num,
+        email, head_img, user_level
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.loginName},
+            #{item.nickName},
+            #{item.passwd},
+            #{item.name},
+            #{item.phoneNum},
+            #{item.email},
+            #{item.headImg},
+            #{item.userLevel}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

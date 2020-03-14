@@ -1,0 +1,44 @@
+package com.example.demo.services;
+
+import com.example.demo.bean.UserInfo;
+import com.example.demo.common.ResultObject;
+import com.example.demo.vo.UserInfoVo;
+
+import java.util.List;
+
+/**
+ * @author：Administrator
+ * @Description：gmall数据库中的user_info，接口
+ * @data：2020:03:13
+ */
+public interface UserInfoServices {
+
+    /**
+     * 查询user_info所有数据
+     * * URL： /gmall/getUserInfo
+     *
+     * @return
+     * @throws Exception
+     */
+    List<UserInfo> getUserInfo() throws Exception;
+
+    /**
+     * 分页查询user_info
+     * * URL： /gmall/getUserInfoPage
+     *
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    ResultObject getUserInfoPage(UserInfoVo request) throws Exception;
+
+    /**
+     * user_info从Excel中导入到数据库
+     * * URL： /gmall/importUserInfo
+     *
+     * @param userInfoList
+     * @return
+     */
+    Integer importUserInfoList(List<UserInfo> userInfoList);
+
+}
