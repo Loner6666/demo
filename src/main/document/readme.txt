@@ -69,5 +69,8 @@
                            快速从代码跳转到mapper及从mapper返回代码
                            mybatis自动补全及语法错误提示
                            集成mybatis generator gui界面
-
-
+        Alibaba Java Coding Guidelines plugin support:《阿里巴巴 Java 开发规约》的扫描插件
+        SonarLint是一个IDE扩展，可以帮助您在编写代码时检测和修复质量问题。和拼写检查器一样，SonarLint也会扭曲缺陷，
+        以便在提交代码之前修复它们。您可以直接从IntelliJ IDEA插件库获得它，然后它会在您编写代码时检测新的bug和质量问题
+        （Java、Kotlin、Ruby、JavaScript、PHP和Python）。
+        如果您的项目是在SonarQube或SonarCloud上分析的，SonarLint可以连接到服务器以检索该项目的适当质量配置文件和设置。运行SonarLint需要Java 8。
