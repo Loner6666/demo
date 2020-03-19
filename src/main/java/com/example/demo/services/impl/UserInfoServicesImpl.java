@@ -60,7 +60,7 @@ public class UserInfoServicesImpl implements UserInfoServices {
      * @return
      */
     @Override
-    public Integer importUserInfoList(List<UserInfo> userInfoList) {
+    public Integer importUserInfoList(List<UserInfo> userInfoList) throws Exception {
         Integer i = this.userInfoMapper.importUserInfoList(userInfoList);
         return i;
     }

@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author：Administrator
- * @Description： 实例
+ * @Description： 示例
  * @data：2020：03:13
  */
 @RestController
 public class HelloController {
 
     /**
-     * 实例
+     * 示例
      * URL： localhost:8081/gmall/hello
      *
      * @return

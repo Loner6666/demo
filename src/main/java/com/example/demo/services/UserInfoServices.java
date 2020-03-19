@@ -39,6 +39,6 @@ public interface UserInfoServices {
      * @param userInfoList
      * @return
      */
-    Integer importUserInfoList(List<UserInfo> userInfoList);
+    Integer importUserInfoList(List<UserInfo> userInfoList) throws Exception;
 
 }
