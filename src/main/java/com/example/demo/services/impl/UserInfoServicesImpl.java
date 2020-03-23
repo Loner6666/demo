@@ -65,4 +65,19 @@ public class UserInfoServicesImpl implements UserInfoServices {
         return i;
     }
 
+    /**
+     * 修改UserInfo信息
+     * * URL：/gmall/updateUser
+     *
+     * @param userInfo
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ResultObject updateUser(UserInfo userInfo) throws Exception {
+        int i = this.userInfoMapper.updateByPrimaryKeySelective(userInfo);
+        String msg = "成功修改：" + i + "条！";
+        return ResultObject.successMsg(msg);
+    }
+
 }

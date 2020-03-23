@@ -62,4 +62,24 @@ public class UserInfoControllerTest {
         }
     }
 
+    /**
+     * 修改UserInfo信息
+     * * URL：/gmall/updateUser
+     */
+    @Test
+    public void updateUser() {
+        try {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setId(1L);
+            userInfo.setLoginName("单元测试1");
+
+            log.info("修改UserInfo信息，start————>{}", JSON.toJSONString(userInfo));
+            ResultObject responseData = this.userInfoServices.updateUser(userInfo);
+            log.info("修改UserInfo信息，end————>{}", JSON.toJSONString(responseData));
+        } catch (Exception e) {
+            log.info("修改UserInfo信息，error————>【{},{}】", e.getMessage(), e);
+            e.printStackTrace();
+        }
+    }
+
 }

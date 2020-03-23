@@ -86,6 +86,29 @@ public class UserInfoController {
     }
 
     /**
+     * 修改UserInfo信息
+     * URL：/gmall/updateUser
+     * http://localhost:8081/gmall/updateUser
+     *
+     * @param userInfo
+     * @return
+     */
+    @PostMapping(value = "/updateUser")
+    public ResultObject updateUser(@RequestBody UserInfo userInfo) {
+        try {
+            log.info("修改UserInfo信息，start————>{}", JSON.toJSONString(userInfo));
+            ResultObject responseData = this.userInfoServices.updateUser(userInfo);
+            log.info("修改UserInfo信息，end————>{}", JSON.toJSONString(responseData));
+            return responseData;
+        } catch (Exception e) {
+            log.info("修改UserInfo信息，error————>【{},{}】", e.getMessage(), e);
+            e.printStackTrace();
+            return ResultObject.error("修改失败！");
+        }
+
+    }
+
+    /**
      * 数据导出到Excel
      * URL： /gmall/exportUserInfo
      * http://localhost:8081/gmall/exportUserInfo

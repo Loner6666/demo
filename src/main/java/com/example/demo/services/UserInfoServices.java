@@ -41,4 +41,14 @@ public interface UserInfoServices {
      */
     Integer importUserInfoList(List<UserInfo> userInfoList) throws Exception;
 
+    /**
+     * 修改UserInfo信息
+     * * URL：/gmall/updateUser
+     *
+     * @param userInfo
+     * @return
+     * @throws Exception
+     */
+    ResultObject updateUser(UserInfo userInfo) throws Exception;
+
 }
