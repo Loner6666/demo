@@ -184,6 +184,6 @@ select id, login_name, nick_name, passwd, name, phone_num, email, head_img, user
 select id, login_name, nick_name, passwd, name, phone_num, email, head_img, user_level
  FROM user_info;
 ------------------------------------------------------------------------------------------------------------------------
---  5  2020-03-14 13:06:14.081 DEBUG 8832 --- [nio-8081-exec-4] c.e.d.m.U.importUserInfoList             : ==>
-insert into user_info ( login_name, nick_name, passwd, name, phone_num, email, head_img, user_level ) values ( '用户3', '昵称1', '202cb962ac59075b964b07152d234b70', '张三123', '44444', 'atguigu.com', '4', '4' ) , ( '用户4', '昵称2', '202cb962ac59075b964b07152d234b70', '张三124', '44445', 'upd@qq.com', '5', '5' ) , ( '用户5', '昵称3', '202cb962ac59075b964b07152d234b70', '张三125', '44446', 'atguigu.com', '6', '6' );
+--  5  2020-03-23 11:34:15.518 DEBUG 8220 --- [nio-8081-exec-5] c.e.d.m.U.importUserInfoList             : ==>
+insert into user_info ( login_name, nick_name, passwd, name, phone_num, email, head_img, user_level ) values ( '用户1', '昵称1', '202cb962ac59075b964b07152d234b70', '张三001', '17300001111', '17300001111@qq.com', '1', '1' ) , ( '用户2', '昵称2', '202cb962ac59075b964b07152d234b70', '张三002', '17300001112', '17300001112@qq.com', '2', '2' ) , ( '用户3', '昵称3', '202cb962ac59075b964b07152d234b70', '张三003', '17300001113', '17300001113@qq.com', '3', '3' ) , ( '用户4', '昵称4', '202cb962ac59075b964b07152d234b70', '张三004', '17300001114', '17300001114@qq.com', '4', '4' );
 ------------------------------------------------------------------------------------------------------------------------

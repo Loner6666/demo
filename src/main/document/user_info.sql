@@ -1,4 +1,3 @@
-/*
  Navicat MySQL Data Transfer
 
  Source Server         : localhost
@@ -11,7 +10,7 @@
  Target Server Version : 50528
  File Encoding         : 65001
 
- Date: 14/03/2020 12:31:02
+ Date: 23/03/2020 11:35:21
 */
 
 SET NAMES utf8mb4;
@@ -37,11 +36,9 @@ PRIMARY KEY ( `id` )
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES (1, 'atguigu', 'Atguigu', '202cb962ac59075b964b07152d234b70', '尚硅谷', '11111', 'atguigu.com', '1', '1');
-INSERT INTO `user_info` VALUES (2, 'admin', 'Administrator', '202cb962ac59075b964b07152d234b70', 'Admin', '2222', 'upd@qq.com', '2', '2');
-INSERT INTO `user_info` VALUES (3, 'zhangsan', '张三', '202cb962ac59075b964b07152d234b70', '张三', '333', 'atguigu.com', '3', '3');
-INSERT INTO `user_info` VALUES (7, '用户3', '昵称1', '202cb962ac59075b964b07152d234b70', '张三123', '44444', 'atguigu.com', '4', '4');
-INSERT INTO `user_info` VALUES (8, '用户4', '昵称2', '202cb962ac59075b964b07152d234b70', '张三124', '44445', 'upd@qq.com', '5', '5');
-INSERT INTO `user_info` VALUES (9, '用户5', '昵称3', '202cb962ac59075b964b07152d234b70', '张三125', '44446', 'atguigu.com', '6', '6');
+INSERT INTO `user_info` VALUES (1, '用户1', '昵称1', '202cb962ac59075b964b07152d234b70', '张三001', '17300001111', '17300001111@qq.com', '1', '1');
+INSERT INTO `user_info` VALUES (2, '用户2', '昵称2', '202cb962ac59075b964b07152d234b70', '张三002', '17300001112', '17300001112@qq.com', '2', '2');
+INSERT INTO `user_info` VALUES (3, '用户3', '昵称3', '202cb962ac59075b964b07152d234b70', '张三003', '17300001113', '17300001113@qq.com', '3', '3');
+INSERT INTO `user_info` VALUES (4, '用户4', '昵称4', '202cb962ac59075b964b07152d234b70', '张三004', '17300001114', '17300001114@qq.com', '4', '4');
 
 SET FOREIGN_KEY_CHECKS = 1;
