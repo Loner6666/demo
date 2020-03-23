@@ -183,6 +183,23 @@ response：
     "data": null
 }
 
+=============================================
+7、
+    http://localhost:8081/gmall/insertUser
+    POST请求，插入UserInfo信息
+request：
+{
+    "loginName": "用户4",
+    "nickName": "昵称4"
+}
+response：
+{
+    "code": 201,
+    "message": "数据已存在，不能重复插入！",
+    "data": null
+}
+
+
 
 ================================================================执行的相关SQL：
 

@@ -50,4 +50,12 @@ public interface UserInfoMapper {
      */
     Integer importUserInfoList(@Param(value = "list") List<UserInfo> userInfoList);
 
+    /**
+     * 根据条件查询UserInfo
+     *
+     * @param userInfo
+     * @return UserInfo
+     */
+    UserInfo selectBySelective(UserInfo userInfo);
+
 }

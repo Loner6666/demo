@@ -105,7 +105,28 @@ public class UserInfoController {
             e.printStackTrace();
             return ResultObject.error("修改失败！");
         }
+    }
 
+    /**
+     * 插入UserInfo信息
+     * URL：/gmall/insertUser
+     * http://localhost:8081/gmall/insertUser
+     *
+     * @param userInfo
+     * @return ResultObject
+     */
+    @PostMapping(value = "/insertUser")
+    public ResultObject insertUser(@RequestBody UserInfo userInfo) {
+        try {
+            log.info("插入UserInfo信息，start————>{}", JSON.toJSONString(userInfo));
+            ResultObject responseData = this.userInfoServices.insertUser(userInfo);
+            log.info("插入UserInfo信息，end————>{}", JSON.toJSONString(responseData));
+            return responseData;
+        } catch (Exception e) {
+            log.info("插入UserInfo信息，error————>【{},{}】", e.getMessage(), e);
+            e.printStackTrace();
+            return ResultObject.error("插入失败！");
+        }
     }
 
     /**

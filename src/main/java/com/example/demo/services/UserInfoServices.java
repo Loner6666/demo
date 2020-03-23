@@ -51,4 +51,14 @@ public interface UserInfoServices {
      */
     ResultObject updateUser(UserInfo userInfo) throws Exception;
 
+    /**
+     * 插入UserInfo信息
+     * * URL：/gmall/insertUser
+     *
+     * @param userInfo
+     * @return ResultObject
+     * @throws Exception
+     */
+    ResultObject insertUser(UserInfo userInfo) throws Exception;
+
 }

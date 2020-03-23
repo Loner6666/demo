@@ -82,4 +82,24 @@ public class UserInfoControllerTest {
         }
     }
 
+    /**
+     * 插入UserInfo信息
+     * * URL：/gmall/insertUser
+     */
+    @Test
+    public void insertUser() {
+        try {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setLoginName("用户4");
+            userInfo.setNickName("昵称4");
+
+            log.info("插入UserInfo信息，start————>{}", JSON.toJSONString(userInfo));
+            ResultObject responseData = this.userInfoServices.insertUser(userInfo);
+            log.info("插入UserInfo信息，end————>{}", JSON.toJSONString(responseData));
+        } catch (Exception e) {
+            log.info("插入UserInfo信息，error————>【{},{}】", e.getMessage(), e);
+            e.printStackTrace();
+        }
+    }
+
 }

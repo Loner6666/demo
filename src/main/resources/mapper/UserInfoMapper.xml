@@ -172,4 +172,41 @@
         </foreach>
     </insert>
 
+    <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.example.demo.bean.UserInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from user_info
+        <where>
+            1 = 1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="loginName != null">
+                and login_name = #{loginName}
+            </if>
+            <if test="nickName != null">
+                and nick_name = #{nickName}
+            </if>
+            <if test="passwd != null">
+                and passwd = #{passwd}
+            </if>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="phoneNum != null">
+                and phone_num = #{phoneNum}
+            </if>
+            <if test="email != null">
+                and email = #{email}
+            </if>
+            <if test="headImg != null">
+                and head_img = #{headImg}
+            </if>
+            <if test="userLevel != null">
+                and user_level = #{userLevel}
+            </if>
+            limit 1
+        </where>
+    </select>
+
 </mapper>
