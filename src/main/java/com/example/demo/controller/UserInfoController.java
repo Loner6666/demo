@@ -61,6 +61,28 @@ public class UserInfoController {
     }
 
     /**
+     * 根据id查询UserInfo
+     * URL：/gmall/user/{id}
+     * http://localhost:8081/gmall/user/1
+     *
+     * @param id
+     * @return ResultObject
+     */
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public ResultObject getUserById(@PathVariable Long id) {
+        try {
+            log.info("根据id查询UserInfo，start————>{}", JSON.toJSONString(id));
+            ResultObject responseData = this.userInfoServices.selectByPrimaryKey(id);
+            log.info("根据id查询UserInfo，end————>{}", JSON.toJSONString(responseData));
+            return responseData;
+        } catch (Exception e) {
+            log.info("根据id查询UserInfo，error————>[{},{}]", e.getMessage(), e);
+            e.printStackTrace();
+            return ResultObject.error("查询失败！");
+        }
+    }
+
+    /**
      * 分页查询user_info
      * URL： /gmall/getUserInfoPage
      * http://localhost:8081/gmall/getUserInfoPage

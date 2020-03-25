@@ -61,4 +61,14 @@ public interface UserInfoServices {
      */
     ResultObject insertUser(UserInfo userInfo) throws Exception;
 
+    /**
+     * 根据id查询UserInfo
+     * * URL：/gmall/user/{id}
+     *
+     * @param id
+     * @return ResultObject
+     * @throws Exception
+     */
+    ResultObject selectByPrimaryKey(Long id) throws Exception;
+
 }

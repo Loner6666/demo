@@ -1,5 +1,6 @@
 package com.example.demo.services.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo.bean.UserInfo;
 import com.example.demo.common.ResultObject;
 import com.example.demo.mapper.UserInfoMapper;
@@ -10,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.JedisCluster;
 
 import java.util.List;
 
@@ -24,6 +26,9 @@ public class UserInfoServicesImpl implements UserInfoServices {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private JedisCluster jedis;
 
     /**
      * 查询user_info所有数据
@@ -104,6 +109,36 @@ public class UserInfoServicesImpl implements UserInfoServices {
         String msg = "成功插入：" + i + "条！";
         log.info(msg);
         return ResultObject.successMsg(msg);
+    }
+
+    /**
+     * 根据id查询UserInfo
+     * * URL：/gmall/user/{id}
+     *
+     * @param id
+     * @return ResultObject
+     * @throws Exception
+     */
+    @Override
+    public ResultObject selectByPrimaryKey(Long id) throws Exception {
+        String key = "USERIFNO_ID_" + id;
+        String value = null;
+        log.info("==UserInfoServicesImpl.selectByPrimaryKey.request【{}】", id);
+
+        if (jedis.exists(key)) {
+            //如果Redis中有，直接返回
+            value = jedis.get(key);
+            log.info("从Redis中返回：【{}】", value);
+        } else {
+            //第一次从数据库查询，并存入Redis
+            UserInfo userInfo = this.userInfoMapper.selectByPrimaryKey(id);
+            value = JSON.toJSONString(userInfo);
+            //过期时间一分钟
+            jedis.setex(key, 60 * 1, value);
+            log.info("第一次从数据库查询：【{}】", value);
+        }
+
+        return ResultObject.successData(value);
     }
 
 }
