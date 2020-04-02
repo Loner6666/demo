@@ -1,11 +1,15 @@
 package com.example.demo.bean;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * gmall数据库中的user_info
  */
-@Data
+@Data//getter、setter方法
+@AllArgsConstructor//全参构造器
+@NoArgsConstructor//无参构造器
 public class UserInfo {
 
     private Long id;//编号
