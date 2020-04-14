@@ -28,7 +28,7 @@ public class CallableThreadMain {
             System.out.println("mt3执行结果：" + call3);
 
             log.info("多线程创建方式三，实现 Callable 接口————>end");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("多线程创建方式三，实现 Callable 接口————>error【{},{}】", e.getMessage(), e);
         }
     }
@@ -45,7 +45,7 @@ class MyCallableThread implements Callable {
     }
 
     @Override
-    public Object call() throws Exception {
+    public Object call() throws RuntimeException {
 
         for (int i = 0; i < 500; i++) {
             if (this.ticket > 0) {
