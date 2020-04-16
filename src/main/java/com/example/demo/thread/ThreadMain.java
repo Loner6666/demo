@@ -34,6 +34,7 @@ class MyThread extends Thread {
         this.name = name;
     }
 
+    @Override
     public void run() {
         for (int i = 0; i < 500; i++) {
             if (this.ticket > 0) {
