@@ -29,13 +29,9 @@ public class NewSingleThreadExecutorMain {
                 public void run() {
                     try {
                         System.out.println(index);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        Thread.sleep(1000);
                         log.info("Executors.newSingleThreadExecutor();Thread.sleep(1000);====【{}】", singleThreadExecutor.toString());
-                    } catch (RuntimeException e) {
+                    } catch (InterruptedException | RuntimeException e) {
                         e.printStackTrace();
                     }
                 }
