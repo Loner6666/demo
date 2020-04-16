@@ -29,13 +29,9 @@ public class NewFixedThreadPoolMain {
                 public void run() {
                     try {
                         System.out.println(index);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        Thread.sleep(1000);
                         log.info("Executors.newFixedThreadPool(3);Thread.sleep(1000);====【{}】", fixedThreadPool.toString());
-                    } catch (RuntimeException e) {
+                    } catch (InterruptedException | RuntimeException e) {
                         e.printStackTrace();
                     }
                 }
