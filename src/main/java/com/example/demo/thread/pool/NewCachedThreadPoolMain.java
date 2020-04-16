@@ -25,11 +25,13 @@ public class NewCachedThreadPoolMain {
         for (int i = 0; i < 10; i++) {
             final int index = i;
             try {
-                Thread.sleep(1000);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 log.info("Executors.newCachedThreadPool();Thread.sleep(1000);====【{}】", cachedThreadPool.toString());
             } catch (RuntimeException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             cachedThreadPool.execute(new Runnable() {
