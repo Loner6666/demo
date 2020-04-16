@@ -31,7 +31,9 @@ public class NewFixedThreadPoolMain {
                         System.out.println(index);
                         Thread.sleep(1000);
                         log.info("Executors.newFixedThreadPool(3);Thread.sleep(1000);====【{}】", fixedThreadPool.toString());
-                    } catch (RuntimeException | InterruptedException e) {
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }

@@ -31,7 +31,9 @@ public class NewSingleThreadExecutorMain {
                         System.out.println(index);
                         Thread.sleep(1000);
                         log.info("Executors.newSingleThreadExecutor();Thread.sleep(1000);====【{}】", singleThreadExecutor.toString());
-                    } catch (RuntimeException | InterruptedException e) {
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
