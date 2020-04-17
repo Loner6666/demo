@@ -32,7 +32,8 @@ public class NewFixedThreadPoolMain {
                         Thread.sleep(1000);
                         log.info("Executors.newFixedThreadPool(3);Thread.sleep(1000);====【{}】", fixedThreadPool.toString());
                     } catch (InterruptedException | RuntimeException e) {
-                        e.printStackTrace();
+                        log.error("Executors.newFixedThreadPool(3);====【{},{}】", e.getMessage(), e);
+                        Thread.currentThread().interrupt();//重新设置中断标示
                     }
                 }
             });

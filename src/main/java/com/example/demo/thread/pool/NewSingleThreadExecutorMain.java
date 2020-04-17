@@ -32,7 +32,8 @@ public class NewSingleThreadExecutorMain {
                         Thread.sleep(1000);
                         log.info("Executors.newSingleThreadExecutor();Thread.sleep(1000);====【{}】", singleThreadExecutor.toString());
                     } catch (InterruptedException | RuntimeException e) {
-                        e.printStackTrace();
+                        log.error("Executors.newSingleThreadExecutor();====【{},{}】", e.getMessage(), e);
+                        Thread.currentThread().interrupt();//重新设置中断标示
                     }
                 }
             });
