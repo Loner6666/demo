@@ -51,11 +51,11 @@
         *.cmd;*.gitignore;*.hprof;*.idea;*.iml;*.md;*.mvn;*.pyc;*.pyo;*.rbc;*.yarb;*~;.DS_Store;.git;.hg;.svn;CVS;__pycache__;_svn;vssver.scc;vssver2.scc;
 
     设置备注模板：File->Settings->Editor->File and Code Templates->Includes->File Header
-        /**
-         * @author：${USER}
-         * @Description：
-         * @data：${YEAR}:${MONTH}:${DAY}
-         */
+/**
+ * @Description：
+ * @Author：${USER}
+ * @CreateTime：${YEAR}:${MONTH}:${DAY}
+ */
 
     Idea安装必备插件：
         Lombok：实体类注解免写getter、setter方法
