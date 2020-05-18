@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-
+    <!-- 依赖的springboot父类，统一版本号，后面依赖版本号和父类一致的可以不用写(2.2.5)-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -18,6 +18,7 @@
     <name>demo</name>
     <description>SpringBoot整合MyBatis，实例项目</description>
 
+    <!-- 配置java版本(必配)和变量区 -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -26,11 +27,13 @@
 
     <dependencies>
 
+        <!-- springboot的启动依赖(集成tomcat) ; 这里是spring-boot-starter-web 而不是 spring-boot-starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- springboot的测试依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -50,7 +53,7 @@
             <version>1.18.8</version>
         </dependency>
 
-        <!--MySQL连接器-->
+        <!--MySQL连接器; jdbc 的依赖(需指定版本) -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
