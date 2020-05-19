@@ -54,7 +54,7 @@
 /**
  * @Description：
  * @Author：${USER}
- * @CreateTime：${YEAR}:${MONTH}:${DAY}
+ * @CreateTime：${YEAR}-${MONTH}-${DAY}
  */
 
     Idea安装必备插件：
