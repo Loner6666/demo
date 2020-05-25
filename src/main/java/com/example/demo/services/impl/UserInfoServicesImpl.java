@@ -125,20 +125,20 @@ public class UserInfoServicesImpl implements UserInfoServices {
         String value = null;
         log.info("==UserInfoServicesImpl.selectByPrimaryKey.request【{}】", id);
 
-        if (jedis.exists(key)) {
-            //如果Redis中有，直接返回
-            value = jedis.get(key);
-            log.info("从Redis中返回：【{}】", value);
-        } else {
-            //第一次从数据库查询，并存入Redis
-            UserInfo userInfo = this.userInfoMapper.selectByPrimaryKey(id);
-            value = JSON.toJSONString(userInfo);
-            //过期时间一分钟
-            jedis.setex(key, 60 * 1, value);
-            log.info("第一次从数据库查询：【{}】", value);
-        }
-
-        return ResultObject.successData(value);
+//        if (jedis.exists(key)) {
+//            //如果Redis中有，直接返回
+//            value = jedis.get(key);
+//            log.info("从Redis中返回：【{}】", value);
+//        } else {
+//            //第一次从数据库查询，并存入Redis
+//            UserInfo userInfo = this.userInfoMapper.selectByPrimaryKey(id);
+//            value = JSON.toJSONString(userInfo);
+//            //过期时间一分钟
+//            jedis.setex(key, 60 * 1, value);
+//            log.info("第一次从数据库查询：【{}】", value);
+//        }
+        UserInfo userInfo = this.userInfoMapper.selectByPrimaryKey(id);
+        return ResultObject.successData(userInfo);
     }
 
 }
