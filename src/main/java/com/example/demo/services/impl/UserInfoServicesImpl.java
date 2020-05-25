@@ -1,6 +1,5 @@
 package com.example.demo.services.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.bean.UserInfo;
 import com.example.demo.common.ResultObject;
 import com.example.demo.mapper.UserInfoMapper;
@@ -139,6 +138,21 @@ public class UserInfoServicesImpl implements UserInfoServices {
 //        }
         UserInfo userInfo = this.userInfoMapper.selectByPrimaryKey(id);
         return ResultObject.successData(userInfo);
+    }
+
+    /**
+     * 根据id删除UserInfo
+     * * URL: /delete/user/{id}
+     *
+     * @param id 用户id
+     * @return ResultObject
+     * @throws Exception
+     */
+    @Override
+    public ResultObject deleteUserById(Long id) throws Exception {
+        int deleteByPrimaryKey = this.userInfoMapper.deleteByPrimaryKey(id);
+        String mes = "成功删除：" + deleteByPrimaryKey + " 条数据！";
+        return ResultObject.successData(mes);
     }
 
 }

@@ -11,6 +11,13 @@ import java.util.List;
  */
 public interface UserInfoMapper {
 
+    /**
+     * 根据id删除UserInfo
+     * * URL: /delete/user/{id}
+     *
+     * @param id 用户id
+     * @return int
+     */
     int deleteByPrimaryKey(Long id);
 
     int insert(UserInfo record);

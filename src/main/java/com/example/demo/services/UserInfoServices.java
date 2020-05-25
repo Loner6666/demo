@@ -71,4 +71,14 @@ public interface UserInfoServices {
      */
     ResultObject selectByPrimaryKey(Long id) throws Exception;
 
+    /**
+     * *根据id删除UserInfo
+     * * URL: /delete/user/{id}
+     *
+     * @param id 用户id
+     * @return ResultObject
+     * @throws Exception
+     */
+    ResultObject deleteUserById(Long id) throws Exception;
+
 }

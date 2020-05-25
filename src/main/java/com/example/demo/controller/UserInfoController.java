@@ -161,6 +161,32 @@ public class UserInfoController {
     }
 
     /**
+     * 根据id删除UserInfo
+     * URL: /delete/user/{id}
+     * http://localhost:8081/gmall/delete/user/{id}
+     *
+     * @param id 用户ID
+     * @return responseData
+     */
+    @ApiOperation(value = "删除指定用户信息", notes = "根据id删除UserInfo", httpMethod = "POST")
+    @ApiImplicitParams(
+            @ApiImplicitParam(paramType = "path", name = "id", value = "用户ID", required = true, dataType = "Long", example = "1")
+    )
+    @RequestMapping(value = "/delete/user/{id}", method = RequestMethod.POST)
+    public ResultObject deleteUserById(@PathVariable Long id) {
+        try {
+            log.info("根据id删除UserInfo，start————>{}", JSON.toJSONString(id));
+            ResultObject responseData = this.userInfoServices.deleteUserById(id);
+            log.info("根据id删除UserInfo，end————>{}", JSON.toJSONString(responseData));
+            return responseData;
+        } catch (Exception e) {
+            log.info("根据id删除UserInfo，error————>[{},{}]", e.getMessage(), e);
+            e.printStackTrace();
+            return ResultObject.error("删除失败！");
+        }
+    }
+
+    /**
      * 数据导出到Excel
      * URL： /gmall/exportUserInfo
      * http://localhost:8081/gmall/exportUserInfo
@@ -214,7 +240,7 @@ public class UserInfoController {
                     dataRow.createCell(9).setCellValue(createTime);
                 }
                 // 设置下载时客户端Excel的名称
-                java.lang.String filename = new SimpleDateFormat("yyyyMMdd").format(new Date()) + "-导入失败记录-UserInfo.xlsx";
+                java.lang.String filename = new SimpleDateFormat("yyyyMMdd").format(new Date()) + "-UserInfo.xlsx";
                 //设置下载的文件
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/vnd.ms-excel");
