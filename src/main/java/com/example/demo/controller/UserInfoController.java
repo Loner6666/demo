@@ -6,14 +6,14 @@ import com.example.demo.bean.UserInfo;
 import com.example.demo.common.ResultObject;
 import com.example.demo.services.UserInfoServices;
 import com.example.demo.vo.UserInfoVo;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +33,7 @@ import java.util.List;
  * @data：2020：03:13
  */
 @Slf4j
+@Api(description = "用户接口")
 @RestController
 public class UserInfoController {
 
@@ -46,6 +47,7 @@ public class UserInfoController {
      *
      * @return
      */
+    @ApiOperation(value = "查询用户信息", notes = "查询user_info所有数据", httpMethod = "GET")
     @RequestMapping("/getUserInfo")
     public ResultObject getUserInfo() {
         try {
@@ -68,6 +70,10 @@ public class UserInfoController {
      * @param id
      * @return ResultObject
      */
+    @ApiOperation(value = "查询指定用户信息", notes = "根据id查询UserInfo", httpMethod = "GET")
+    @ApiImplicitParams(
+            @ApiImplicitParam(paramType = "path", name = "id", value = "用户ID", required = true, dataType = "Long", example = "1")
+    )
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public ResultObject getUserById(@PathVariable Long id) {
         try {
@@ -93,8 +99,9 @@ public class UserInfoController {
      *
      * @return
      */
+    @ApiOperation(value = "分页查询", notes = "分页查询user_info", httpMethod = "POST")
     @PostMapping(value = "/getUserInfoPage")
-    public ResultObject getUserInfoPage(@RequestBody UserInfoVo request) {
+    public ResultObject getUserInfoPage(@RequestBody @ApiParam(name = "用户分页对象", value = "传入json格式", required = true) UserInfoVo request) {
         try {
             log.info("分页查询user_info，start————>{}", JSON.toJSONString(request));
             ResultObject responseData = this.userInfoServices.getUserInfoPage(request);
@@ -115,8 +122,9 @@ public class UserInfoController {
      * @param userInfo
      * @return
      */
+    @ApiOperation(value = "修改用户信息", notes = "修改UserInfo信息", httpMethod = "POST")
     @PostMapping(value = "/updateUser")
-    public ResultObject updateUser(@RequestBody UserInfo userInfo) {
+    public ResultObject updateUser(@RequestBody @ApiParam(name = "用户对象", value = "传入json格式") UserInfo userInfo) {
         try {
             log.info("修改UserInfo信息，start————>{}", JSON.toJSONString(userInfo));
             ResultObject responseData = this.userInfoServices.updateUser(userInfo);
@@ -137,8 +145,9 @@ public class UserInfoController {
      * @param userInfo
      * @return ResultObject
      */
+    @ApiOperation(value = "插入用户信息", notes = "插入UserInfo信息", httpMethod = "POST")
     @PostMapping(value = "/insertUser")
-    public ResultObject insertUser(@RequestBody UserInfo userInfo) {
+    public ResultObject insertUser(@RequestBody @ApiParam(name = "用户对象", value = "传入json格式") UserInfo userInfo) {
         try {
             log.info("插入UserInfo信息，start————>{}", JSON.toJSONString(userInfo));
             ResultObject responseData = this.userInfoServices.insertUser(userInfo);
@@ -158,6 +167,7 @@ public class UserInfoController {
      *
      * @return
      */
+    @ApiOperation(value = "数据导出", notes = "数据导出到Excel", httpMethod = "GET")
     @GetMapping(value = "/exportUserInfo")
     public void exportUserInfo(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -170,12 +180,12 @@ public class UserInfoController {
             if (!userInfoList.isEmpty()) {
                 log.info("开始写入Excel文件");
                 //创建excel文件
-                HSSFWorkbook wb = new HSSFWorkbook();
+                XSSFWorkbook wb = new XSSFWorkbook();
                 //创建sheet页
-                HSSFSheet sheet = wb.createSheet(" 导入失败记录");
+                XSSFSheet sheet = wb.createSheet("Sheet1");
 
                 //创建标题行
-                HSSFRow titleRow = sheet.createRow(0);
+                XSSFRow titleRow = sheet.createRow(0);
                 titleRow.createCell(0).setCellValue("编号");
                 titleRow.createCell(1).setCellValue("用户名称");
                 titleRow.createCell(2).setCellValue("用户昵称");
@@ -190,7 +200,7 @@ public class UserInfoController {
 
                 //遍历将数据放到excel列中
                 for (UserInfo userInfo : userInfoList) {
-                    HSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                    XSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
                     dataRow.createCell(0).setCellValue(userInfo.getId());
                     dataRow.createCell(1).setCellValue(userInfo.getLoginName());
                     dataRow.createCell(2).setCellValue(userInfo.getNickName());
@@ -204,7 +214,7 @@ public class UserInfoController {
                     dataRow.createCell(9).setCellValue(createTime);
                 }
                 // 设置下载时客户端Excel的名称
-                java.lang.String filename = new SimpleDateFormat("yyyyMMdd").format(new Date()) + "-UserInfo.xls";
+                java.lang.String filename = new SimpleDateFormat("yyyyMMdd").format(new Date()) + "-导入失败记录-UserInfo.xlsx";
                 //设置下载的文件
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/vnd.ms-excel");
@@ -232,8 +242,9 @@ public class UserInfoController {
      * @param file
      * @return
      */
+    @ApiOperation(value = "数据导入", notes = "数据导入到数据库", httpMethod = "POST", produces = "application/octet-stream")
     @PostMapping("/importUserInfo")
-    public ResultObject importUserInfo(@RequestParam(required = true) MultipartFile file) throws Exception {
+    public ResultObject importUserInfo(@RequestParam(required = true) @ApiParam(name = "file", value = "要导入的excel文件") MultipartFile file) throws Exception {
         log.info("数据导入到数据库 开始——》{}");
 
         // 校验文件名
