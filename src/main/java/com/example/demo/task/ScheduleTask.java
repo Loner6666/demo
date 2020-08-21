@@ -21,13 +21,13 @@ public class ScheduleTask {
     //每天凌晨1点执行一次："0 0 1 * * ?"
 
     /**
-     * 每隔5秒输出一下当前时间
+     * 每隔10min输出一下当前时间
      */
-    @Scheduled(cron = "*/5 * * * * ?")
+    @Scheduled(cron = "0 */10 * * * ?")
     public void execute() {
         String str = "yyy-MM-dd HH:mm:ss";
         SimpleDateFormat sdf = new SimpleDateFormat(str);
-        System.out.println("定时任务,每隔5秒输出一下当前时间：" + sdf.format(System.currentTimeMillis()));
+        System.out.println("定时任务,每隔10min输出一下当前时间：" + sdf.format(System.currentTimeMillis()));
     }
 
 }
