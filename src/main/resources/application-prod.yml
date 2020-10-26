@@ -47,7 +47,7 @@ jedis:
     minIdle: 5
     maxTotal: 20
     timeout: 3000
-    server-list: 127.0.1:6380,127.0.1:6381,127.0.1:6382
+    server-list: 127.0.0.1:6380,127.0.0.1:6381,127.0.0.1:6382
 #扫描MyBatis的xml文件
 mybatis:
   mapper-locations: classpath:mapper/*.xml
