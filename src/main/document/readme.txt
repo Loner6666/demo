@@ -80,3 +80,9 @@
         以便在提交代码之前修复它们。您可以直接从IntelliJ IDEA插件库获得它，然后它会在您编写代码时检测新的bug和质量问题
         （Java、Kotlin、Ruby、JavaScript、PHP和Python）。
         如果您的项目是在SonarQube或SonarCloud上分析的，SonarLint可以连接到服务器以检索该项目的适当质量配置文件和设置。运行SonarLint需要Java 8。
+
+        EasyCode-MybatisCodeHelper 插件：
+        基于IntelliJ IDEA开发的代码生成插件，支持自定义任意模板（Java，html，js，xml）。
+        只要是与数据库相关的代码都可以通过自定义模板来生成。支持数据库类型与java类型映射关系配置。
+        支持同时生成生成多张表的代码。每张表有独立的配置信息。完全的个性化定义，规则由你设置。
+        该版本用于兼容MybatisCodeHelper插件，方便MybatisCodeHelper插件做代码补全检测等
