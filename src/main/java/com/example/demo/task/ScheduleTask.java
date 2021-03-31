@@ -25,7 +25,7 @@ public class ScheduleTask {
      */
     @Scheduled(cron = "0 */10 * * * ?")
     public void execute() {
-        String str = "yyy-MM-dd HH:mm:ss";
+        String str = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat sdf = new SimpleDateFormat(str);
         System.out.println("定时任务,每隔10min输出一下当前时间：" + sdf.format(System.currentTimeMillis()));
     }
