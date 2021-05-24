@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,6 +60,11 @@ public class UserInfoController {
         } catch (Exception e) {
             log.info("查询user_info所有数据，error————>[{},{}]", e.getMessage(), e);
             e.printStackTrace();
+            StringWriter errInfo = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(errInfo);
+            e.printStackTrace(printWriter);
+            String toString = errInfo.toString();
+            System.out.println("======toString=========="+toString);
             return ResultObject.error("系统异常！");
         }
     }
