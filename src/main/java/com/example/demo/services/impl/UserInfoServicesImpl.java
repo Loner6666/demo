@@ -10,9 +10,14 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import redis.clients.jedis.JedisCluster;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
+import java.util.*;
 
 /**
  * @author：Administrator
@@ -153,6 +158,125 @@ public class UserInfoServicesImpl implements UserInfoServices {
         int deleteByPrimaryKey = this.userInfoMapper.deleteByPrimaryKey(id);
         String mes = "成功删除：" + deleteByPrimaryKey + " 条数据！";
         return ResultObject.successData(mes);
+    }
+
+    /**
+     * 导出到CSV文件
+     *
+     * @param request
+     * @param response
+     */
+    @Override
+    public void exportCsv(HttpServletRequest request, HttpServletResponse response) {
+        List<UserInfo> userInfoList = userInfoMapper.getUserInfo();
+        BufferedWriter csvFileOutputStream = null;
+        String fileName = "导出CSV文件test";
+        List exportData = new ArrayList<Map>();
+        if (!CollectionUtils.isEmpty(userInfoList)) {
+            Map row = new LinkedHashMap<String, String>();
+            for (UserInfo userInfo : userInfoList) {
+                row.put("1", userInfo.getId());
+                row.put("2", userInfo.getLoginName());
+                row.put("3", userInfo.getNickName());
+                row.put("4", userInfo.getPasswd());
+                row.put("5", userInfo.getName());
+                row.put("6", userInfo.getPhoneNum());
+                row.put("7", userInfo.getEmail());
+                row.put("8", userInfo.getHeadImg());
+                row.put("9", userInfo.getUserLevel());
+                exportData.add(row);
+                row = new LinkedHashMap<String, String>();
+            }
+        }
+        //设置列名
+        LinkedHashMap map = new LinkedHashMap();
+        map.put("1", "编号");
+        map.put("2", "用户名称");
+        map.put("3", "用户昵称");
+        map.put("4", "用户密码");
+        map.put("5", "用户姓名");
+        map.put("6", "手机号");
+        map.put("7", "邮箱");
+        map.put("8", "头像");
+        map.put("9", "用户级别");
+        try {
+            File csvFile = csvFile = new File(fileName + ".csv");
+            //UTF-8使正确读取分隔符","
+            //如果生产文件乱码，windows下用gbk，linux用UTF-8
+            csvFileOutputStream = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(csvFile), "UTF-8"), 1024);
+            //写入前段字节流，防止乱码
+            csvFileOutputStream.write(getBOM());
+            //写入文件头部
+            for (Iterator propertyIterator = map.entrySet().iterator(); propertyIterator.hasNext(); ) {
+                java.util.Map.Entry propertyEntry = (java.util.Map.Entry) propertyIterator.next();
+                csvFileOutputStream.write((String) propertyEntry.getValue() != null ? (String) propertyEntry.getValue() : "");
+                if (propertyIterator.hasNext()) {
+                    csvFileOutputStream.write(",");
+                }
+            }
+            //换行
+            csvFileOutputStream.newLine();
+            //写入文件内容
+            for (Iterator iterator = exportData.iterator(); iterator.hasNext(); ) {
+                Object row = (Object) iterator.next();
+                for (Iterator propertyIterator = map.entrySet().iterator(); propertyIterator.hasNext(); ) {
+                    java.util.Map.Entry propertyEntry = (java.util.Map.Entry) propertyIterator.next();
+                    String str = row != null ? (String.valueOf(((Map) row).get(propertyEntry.getKey()))) : "";
+
+                    if (Objects.isNull(str)) {
+                        str = "";
+                    } else {
+                        str = str.replaceAll("\"", "\"\"");
+                        if (str.indexOf(",") >= 0) {
+                            str = "\"" + str + "\"";
+                        }
+                    }
+                    csvFileOutputStream.write(str);
+                    if (propertyIterator.hasNext()) {
+                        csvFileOutputStream.write(",");
+                    }
+                }
+                if (iterator.hasNext()) {
+                    csvFileOutputStream.newLine();
+                }
+            }
+            csvFileOutputStream.flush();
+            //浏览器导出
+            InputStream in = new FileInputStream(csvFile);
+            int len = 0;
+            byte[] buffer = new byte[1024];
+            OutputStream out = response.getOutputStream();
+            response.reset();
+            response.setContentType("application/csv;charset=UTF-8");
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName + ".csv", "UTF-8"));
+            response.setCharacterEncoding("UTF-8");
+            while ((len = in.read(buffer)) > 0) {
+                out.write(new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF});
+                out.write(buffer, 0, len);
+            }
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.info("导出SCV异常", e);
+        } finally {
+            try {
+                csvFileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        log.info("导出SCV成功");
+    }
+
+    /**
+     * 功能说明：获取UTF-8编码文本文件开头的BOM签名。
+     * BOM(Byte Order Mark)，是UTF编码方案里用于标识编码的标准标记。例：接收者收到以EF BB BF开头的字节流，就知道是UTF-8编码。
+     *
+     * @return UTF-8编码文本文件开头的BOM签名
+     */
+    public static String getBOM() {
+        byte b[] = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
+        return new String(b);
     }
 
 }

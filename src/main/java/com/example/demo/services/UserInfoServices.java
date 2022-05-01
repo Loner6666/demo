@@ -4,6 +4,8 @@ import com.example.demo.bean.UserInfo;
 import com.example.demo.common.ResultObject;
 import com.example.demo.vo.UserInfoVo;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -80,5 +82,13 @@ public interface UserInfoServices {
      * @throws Exception
      */
     ResultObject deleteUserById(Long id) throws Exception;
+
+    /**
+     * 导出到CSV文件
+     *
+     * @param request
+     * @param response
+     */
+    void exportCsv(HttpServletRequest request, HttpServletResponse response);
 
 }

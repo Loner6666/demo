@@ -64,7 +64,7 @@ public class UserInfoController {
             PrintWriter printWriter = new PrintWriter(errInfo);
             e.printStackTrace(printWriter);
             String toString = errInfo.toString();
-            System.out.println("======toString=========="+toString);
+            System.out.println("======toString==========" + toString);
             return ResultObject.error("系统异常！");
         }
     }
@@ -427,6 +427,18 @@ public class UserInfoController {
             log.error("请按模板格式进行上传!");
             throw new Exception("模板不正确");
         }
+    }
+
+    /**
+     * 导出到CSV文件
+     * URL: http://localhost:8081/gmall/exportCsv
+     *
+     * @param request
+     * @param response
+     */
+    @GetMapping("/exportCsv")
+    public void exportCsv(HttpServletRequest request, HttpServletResponse response) {
+        userInfoServices.exportCsv(request, response);
     }
 
 
