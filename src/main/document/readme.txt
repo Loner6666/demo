@@ -9,6 +9,13 @@
           <name>aliyun Maven</name>
           <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         </mirror>
+    新阿里云仓库地址：https://maven.aliyun.com/mvn/guide
+        <mirror>
+          <id>aliyunmaven</id>
+          <mirrorOf>*</mirrorOf>
+          <name>阿里云公共仓库</name>
+          <url>https://maven.aliyun.com/repository/public</url>
+        </mirror>
 
 
 2、绿色版Idea的安装激活：
