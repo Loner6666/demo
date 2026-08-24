@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.common;
 
 import com.example.demo.enums.DirectioneEnum;
 import org.junit.Test;

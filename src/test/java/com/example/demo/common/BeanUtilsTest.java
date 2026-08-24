@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.common;
 
+import com.example.demo.DemoApplication;
 import com.example.demo.bean.UserInfo;
 import com.example.demo.mapper.UserInfoMapper;
 import lombok.extern.slf4j.Slf4j;

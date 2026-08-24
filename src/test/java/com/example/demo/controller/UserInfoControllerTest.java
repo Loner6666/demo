@@ -1,6 +1,7 @@
-package com.example.demo;
+package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.demo.DemoApplication;
 import com.example.demo.bean.UserInfo;
 import com.example.demo.common.ResultObject;
 import com.example.demo.services.UserInfoServices;

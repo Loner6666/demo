@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.service;
 
+import com.example.demo.DemoApplication;
 import com.example.demo.strategy.CommonService;
 import com.example.demo.strategy.CommonServiceFactory;
 import lombok.extern.slf4j.Slf4j;
